@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script>
+            function canvas(g)
+            {
+                var rc = document.getElementById("rose");
+                var grid = rc.getContext("2d");
+
+                for (var x = 0; x < 3; x++)
+                {
+                    for (var y = 0; y < 8; y++)
+                    {
+                        grid.beginPath();
+                        point(x, y, true, grid);
+                        point(x + 1, y, false, grid);
+                        point(x + 1, y + 1, false, grid);
+                        point(x, y + 1, false, grid);
+                        grid.closePath();
+
+                        grid.strokeStyle = "black";
+                        grid.stroke();
+
+                        if (g[y][x] === 0)
+                        {
+                            grid.fillStyle = "grey";
+                        }
+                        else if (g[y][x] === 1)
+                        {
+                            grid.fillStyle = "green";
+                        }
+                        else if (g[y][x] === 2)
+                        {
+                            grid.fillStyle = "yellow";
+                        }
+                        else if (g[y][x] === 3)
+                        {
+                            grid.fillStyle = "red";
+                        }
+                        else if (g[y][x] === 4)
+                        {
+                            grid.fillStyle = "black";
+                        }
+
+                        grid.fill();
+                    }
+
+                }
+
+            }
+            function point(x, y, md, grid)
+            {
+                x1 = 50 * x * Math.sin(y * (Math.PI / 4) + (Math.PI / 8)) + 200;
+                y1 = 50 * x * Math.cos(y * (Math.PI / 4) + (Math.PI / 8)) + 200;
+                if (md)
+                {
+                    grid.moveTo(x1, y1);
+                }
+                else
+                {
+                    grid.lineTo(x1, y1);
+                }
+            }
+        </script>
+    </head>
+    <body onload="canvas([[2, 1, 0], [2, 1, 0], [3, 2, 1], [4, 2, 1], [4, 2, 1], [3, 2, 1], [3, 2, 1], [3, 2, 1]])">
+        <canvas id="rose" height='500' width='1000'></canvas>
+    </body>
+</html>
